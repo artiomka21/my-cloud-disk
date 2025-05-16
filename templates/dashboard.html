@@ -1,0 +1,25 @@
+<!DOCTYPE html>
+<html>
+<head><title>Облако</title></head>
+<body>
+  <h2>Добро пожаловать, {{ current_user.username }}</h2>
+  <a href="/logout">Выйти</a>
+  <h3>Загрузка файла</h3>
+  <form method="POST" enctype="multipart/form-data">
+    <input type="file" name="file">
+    <button type="submit">Загрузить</button>
+  </form>
+  {% with messages = get_flashed_messages() %}
+    {% for msg in messages %}<p>{{ msg }}</p>{% endfor %}
+  {% endwith %}
+  <h3>Файлы:</h3>
+  <ul>
+    {% for f in files %}
+      <li>{{ f }} 
+        <a href="/download/{{ f }}">Скачать</a> 
+        <a href="/delete/{{ f }}">Удалить</a>
+      </li>
+    {% endfor %}
+  </ul>
+</body>
+</html>

@@ -1,0 +1,16 @@
+<!DOCTYPE html>
+<html>
+<head><title>Регистрация</title></head>
+<body>
+  <h2>Регистрация</h2>
+  <form method="POST">
+    <input name="username" placeholder="Логин"><br>
+    <input type="password" name="password" placeholder="Пароль"><br>
+    <button type="submit">Зарегистрироваться</button>
+  </form>
+  <a href="/login">Уже есть аккаунт</a>
+  {% with messages = get_flashed_messages() %}
+    {% for msg in messages %}<p>{{ msg }}</p>{% endfor %}
+  {% endwith %}
+</body>
+</html>
