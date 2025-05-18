@@ -148,3 +148,38 @@ UPLOAD_FOLDER = os.path.join(os.getcwd(), 'uploads')
 def download_file(username, filename):
     folder_path = os.path.join(UPLOAD_FOLDER, username)
     return send_from_directory(folder_path, filename, as_attachment=True)
+import os
+from flask import render_template_string
+
+@app.route('/list_files')
+def list_files():
+    base_dir = os.path.join(os.getcwd(), 'uploads')
+    files_list = []
+
+    # Обход папки uploads и подпапок первого уровня
+    for folder_name in os.listdir(base_dir):
+        folder_path = os.path.join(base_dir, folder_name)
+        if os.path.isdir(folder_path):
+            # если это папка — пробегаем по её файлам
+            for filename in os.listdir(folder_path):
+                files_list.append({
+                    'path': f'{folder_name}/{filename}',
+                    'name': filename
+                })
+        else:
+            # если файл лежит прямо в uploads
+            files_list.append({
+                'path': folder_name,
+                'name': folder_name
+            })
+
+    # Формируем простую HTML-страницу со ссылками для скачивания
+    html = '''
+    <h1>Список файлов в uploads</h1>
+    <ul>
+        {% for file in files %}
+        <li><a href="/download/{{ file.path }}">{{ file.path }}</a></li>
+        {% endfor %}
+    </ul>
+    '''
+    return render_template_string(html, files=files_list)
