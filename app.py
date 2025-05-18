@@ -139,3 +139,12 @@ if __name__ == '__main__':
 
     port = int(os.environ.get('PORT', 8080))
     app.run(host='0.0.0.0', port=port)
+from flask import send_from_directory
+import os
+
+UPLOAD_FOLDER = os.path.join(os.getcwd(), 'uploads')
+
+@app.route('/download/<path:username>/<path:filename>')
+def download_file(username, filename):
+    folder_path = os.path.join(UPLOAD_FOLDER, username)
+    return send_from_directory(folder_path, filename, as_attachment=True)
