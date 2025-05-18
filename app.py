@@ -124,3 +124,18 @@ if __name__ == '__main__':
     db.commit()
 
     app.run(debug=True)
+
+import os
+
+if __name__ == '__main__':
+    db = get_db()
+    db.execute('''
+    CREATE TABLE IF NOT EXISTS users (
+        id INTEGER PRIMARY KEY AUTOINCREMENT,
+        username TEXT UNIQUE NOT NULL,
+        password TEXT NOT NULL
+    )''')
+    db.commit()
+
+    port = int(os.environ.get('PORT', 5000))
+    app.run(host='0.0.0.0', port=port)
