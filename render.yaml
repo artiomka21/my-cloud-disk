@@ -3,8 +3,4 @@ services:
     name: my-cloud-disk
     env: python
     buildCommand: ""
-    startCommand: python app.py
-    plan: free
-    envVars:
-      - key: FLASK_ENV
-        value: production
+    startCommand: gunicorn app:app
