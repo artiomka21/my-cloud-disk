@@ -1,6 +1,78 @@
 <!DOCTYPE html>
 <html>
-<head><title>Облако</title></head>
+<head>
+  <title>Облако</title>
+  <style>
+    body {
+      font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+      background: #f4f7f8;
+      color: #333;
+      max-width: 600px;
+      margin: 40px auto;
+      padding: 20px;
+      border-radius: 8px;
+      box-shadow: 0 2px 8px rgba(0,0,0,0.1);
+    }
+    h2 {
+      color: #2c3e50;
+      margin-bottom: 10px;
+    }
+    a {
+      color: #2980b9;
+      text-decoration: none;
+      margin-left: 10px;
+    }
+    a:hover {
+      text-decoration: underline;
+    }
+    form {
+      margin-bottom: 20px;
+    }
+    input[type="file"] {
+      padding: 5px;
+      border: 1px solid #ccc;
+      border-radius: 4px;
+    }
+    button {
+      background-color: #2980b9;
+      border: none;
+      color: white;
+      padding: 8px 15px;
+      font-size: 14px;
+      border-radius: 4px;
+      cursor: pointer;
+      margin-left: 10px;
+    }
+    button:hover {
+      background-color: #3498db;
+    }
+    ul {
+      list-style-type: none;
+      padding-left: 0;
+    }
+    li {
+      background: white;
+      margin-bottom: 10px;
+      padding: 10px 15px;
+      border-radius: 6px;
+      box-shadow: 0 1px 3px rgba(0,0,0,0.1);
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+    }
+    li a {
+      margin-left: 10px;
+      font-size: 14px;
+    }
+    p {
+      background: #eaf2f8;
+      padding: 10px 15px;
+      border-radius: 5px;
+      color: #2c3e50;
+      margin-bottom: 15px;
+    }
+  </style>
+</head>
 <body>
   <h2>Добро пожаловать, {{ current_user.username }}</h2>
   <a href="/logout">Выйти</a>
@@ -16,8 +88,10 @@
   <ul>
     {% for f in files %}
       <li>{{ f }} 
-        <a href="/download/{{ f }}">Скачать</a> 
-        <a href="/delete/{{ f }}">Удалить</a>
+        <span>
+          <a href="/download/{{ f }}">Скачать</a> 
+          <a href="/delete/{{ f }}">Удалить</a>
+        </span>
       </li>
     {% endfor %}
   </ul>
